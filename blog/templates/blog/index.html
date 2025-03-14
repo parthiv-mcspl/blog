@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Layout</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e8f1f2, #f7e7ce);
+            color: #3b3b3b;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Container */
+        .container.mt-3 {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        /* Rows and Columns */
+        .row.my-2 {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -10px;
+        }
+        
+        .col-md-6 {
+            flex: 0 0 50%;
+            padding: 15px;
+        }
+        
+        /* Blog Cards */
+        .row.no-gutters {
+            background: #fdfdfd;
+            border: 1px solid #cfcfcf;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            transition: transform 0.4s, box-shadow 0.4s ease-in-out;
+        }
+        
+        .row.no-gutters:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border-color: #007bff;
+        }
+        
+        .col.p-4 {
+            padding: 20px;
+            background: linear-gradient(120deg, #f9f9ff, #ffffff);
+            border-radius: 15px 0 0 15px;
+        }
+        
+        /* Text Styles */
+        strong.d-inline-block.mb-2.text-primary {
+            color: #6c63ff;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+        
+        h3.mb-0 {
+            color: #4a4a4a;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            transition: color 0.3s;
+        }
+        
+       
+        
+        p.card-text.mb-auto {
+            color: #606060;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        /* Links */
+        a.stretched-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+        }
+        
+        a.stretched-link:hover {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            text-shadow: 0px 1px 5px rgba(0, 123, 255, 0.5);
+        }
+        
+        /* Thumbnail Images */
+        .col-auto img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 0 15px 15px 0;
+            filter: brightness(90%);
+            transition: transform 0.4s ease, filter 0.4s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .col-auto img:hover {
+            transform: scale(1.05);
+            filter: brightness(100%);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .col-md-6 {
+                flex: 0 0 100%;
+            }
+        
+            .row.no-gutters {
+                flex-direction: column;
+            }
+        
+            .col-auto img {
+                border-radius: 0 0 15px 15px;
+                width: 100%;
+                height: auto;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container mt-3">
+        <div class="row my-2">
+            {% for item in myposts %}
+            <div class="col-md-6">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-primary">{{item.head0}}</strong>
+                        <h3 class="mb-0">{{item.tilte}}</h3>
+                        <p class="card-text mb-auto">{{item.head1}}</p>
+                        <a href="blogpost/{{item.post_id}}" class="stretched-link">Continue reading</a>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <img src="/media/{{item.thumbnail}}" class="bd-placeholder-img" width="200" height="250" alt="Thumbnail">
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:2 %}
+        </div>
+        <div class="row my-2">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
